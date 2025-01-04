@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio_pro/controllers/theme_controller.dart';
 import 'package:portfolio_pro/core/themes/app_theme.dart';
 import 'package:portfolio_pro/core/themes/theme_provider.dart';
 import 'package:portfolio_pro/firebase_options.dart';
@@ -9,6 +10,10 @@ import 'package:portfolio_pro/views/screens/home_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Initialize the theme controller
+  Get.put(ThemeController());
+  
   runApp(const MyApp());
 }
 

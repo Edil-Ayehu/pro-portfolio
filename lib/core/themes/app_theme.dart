@@ -3,9 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   static final lightTheme = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.light,
     primaryColor: Colors.blue[900],
     scaffoldBackgroundColor: Colors.white,
+    cardColor: Colors.white,
     textTheme: TextTheme(
       displayLarge: GoogleFonts.poppins(
         fontSize: 48,
@@ -33,9 +35,11 @@ class AppTheme {
   );
 
   static final darkTheme = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.dark,
     primaryColor: Colors.blue[400],
-    scaffoldBackgroundColor: Colors.grey[900],
+    scaffoldBackgroundColor: const Color(0xFF121212),
+    cardColor: const Color(0xFF1E1E1E),
     textTheme: TextTheme(
       displayLarge: GoogleFonts.poppins(
         fontSize: 48,
