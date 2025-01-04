@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio_pro/core/themes/theme_provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final ThemeProvider themeProvider = Get.find<ThemeProvider>();
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +74,17 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(width: 20),
                   _buildSocialButton(CupertinoIcons.link, "LinkedIn"),
                 ],
+              ),
+              IconButton(
+                onPressed: () {
+                  themeProvider.changeThemeMode(
+                    Get.isDarkMode ? ThemeMode.light : ThemeMode.dark,
+                  );
+                },
+                icon: Icon(
+                  Get.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),

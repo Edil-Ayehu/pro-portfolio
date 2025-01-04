@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:portfolio_pro/core/themes/app_theme.dart';
+import 'package:portfolio_pro/core/themes/theme_provider.dart';
 import 'package:portfolio_pro/firebase_options.dart';
 import 'package:portfolio_pro/views/screens/home_screen.dart';
 
@@ -14,14 +17,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final themeProvider = Get.put(ThemeProvider());
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomeScreen(),
+      title: 'Portfolio Pro',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeProvider.theme,
+      home: HomeScreen(),
     );
   }
 }
