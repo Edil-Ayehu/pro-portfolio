@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio_pro/controllers/theme_controller.dart';
+import 'package:portfolio_pro/views/widgets/common/common_appbar.dart';
 
 class AboutScreen extends GetView<ThemeController> {
   const AboutScreen({super.key});
@@ -9,6 +10,7 @@ class AboutScreen extends GetView<ThemeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: const CommonAppBar(currentScreen: 'About'),
       body: LayoutBuilder(
         builder: (context, constraints) {
           // Determine if we're on a mobile device

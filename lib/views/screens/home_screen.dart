@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_pro/controllers/theme_controller.dart';
+import 'package:portfolio_pro/views/screens/about_screen.dart';
+import 'package:portfolio_pro/views/widgets/common/common_appbar.dart';
 
 class HomeScreen extends GetView<ThemeController> {
   HomeScreen({super.key});
@@ -12,54 +14,7 @@ class HomeScreen extends GetView<ThemeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildNavButton('Home', true),
-            const SizedBox(width: 32),
-            _buildNavButton('About', false),
-            const SizedBox(width: 32),
-            _buildNavButton('Projects', false),
-            const SizedBox(width: 32),
-            _buildNavButton('Contact', false),
-          ],
-        ),
-        actions: [
-          GetX<ThemeController>(
-            builder: (controller) => MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: Container(
-                margin: const EdgeInsets.only(right: 16),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  color: controller.isDarkMode
-                      ? Colors.white.withOpacity(0.1)
-                      : Colors.black.withOpacity(0.05),
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(
-                    color: controller.isDarkMode
-                        ? Colors.white.withOpacity(0.2)
-                        : Colors.black.withOpacity(0.1),
-                  ),
-                ),
-                child: IconButton(
-                  onPressed: controller.toggleTheme,
-                  icon: Icon(
-                    controller.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                    color: controller.isDarkMode ? Colors.white : Colors.black,
-                    size: 20,
-                  ),
-                  tooltip: controller.isDarkMode ? 'Light Mode' : 'Dark Mode',
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      appBar: const CommonAppBar(currentScreen: 'Home'),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
@@ -458,6 +413,14 @@ class HomeScreen extends GetView<ThemeController> {
         child: InkWell(
           onTap: () {
             // Add navigation logic here
+            if (text == 'About') {
+              Get.to(
+                () => const AboutScreen(),
+                transition: Transition.fadeIn,
+                duration: const Duration(milliseconds: 300),
+              );
+            }
+            // Add other navigation cases as needed
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
