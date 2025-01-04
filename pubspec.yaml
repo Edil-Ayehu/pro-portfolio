@@ -41,6 +41,7 @@ dependencies:
   get: ^4.6.6
   get_storage: ^2.1.1
   hover_widget: ^0.1.1
+  video_player: ^2.9.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

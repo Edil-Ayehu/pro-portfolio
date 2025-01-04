@@ -5,10 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_pro/controllers/theme_controller.dart';
 import 'package:portfolio_pro/views/screens/about_screen.dart';
 import 'package:portfolio_pro/views/screens/home_screen.dart';
+import 'package:portfolio_pro/views/screens/projects_screen.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String currentScreen;
-  
+
   const CommonAppBar({
     Key? key,
     required this.currentScreen,
@@ -78,6 +79,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   break;
                 case 'About':
                   Get.off(() => const AboutScreen());
+                  break;
+                case 'Projects':
+                  Get.off(() => const ProjectsScreen());
                   break;
                 // Add other cases as needed
               }
