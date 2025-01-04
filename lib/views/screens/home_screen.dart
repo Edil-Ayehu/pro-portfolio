@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_pro/controllers/theme_controller.dart';
@@ -14,15 +15,49 @@ class HomeScreen extends GetView<ThemeController> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildNavButton('Home', true),
+            const SizedBox(width: 32),
+            _buildNavButton('About', false),
+            const SizedBox(width: 32),
+            _buildNavButton('Projects', false),
+            const SizedBox(width: 32),
+            _buildNavButton('Contact', false),
+          ],
+        ),
         actions: [
-          IconButton(
-            onPressed: controller.toggleTheme,
-            icon: Obx(() => Icon(
-                  controller.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                  color: controller.isDarkMode ? Colors.white : Colors.black,
-                )),
+          GetX<ThemeController>(
+            builder: (controller) => MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: Container(
+                margin: const EdgeInsets.only(right: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: controller.isDarkMode
+                      ? Colors.white.withOpacity(0.1)
+                      : Colors.black.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(
+                    color: controller.isDarkMode
+                        ? Colors.white.withOpacity(0.2)
+                        : Colors.black.withOpacity(0.1),
+                  ),
+                ),
+                child: IconButton(
+                  onPressed: controller.toggleTheme,
+                  icon: Icon(
+                    controller.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                    color: controller.isDarkMode ? Colors.white : Colors.black,
+                    size: 20,
+                  ),
+                  tooltip: controller.isDarkMode ? 'Light Mode' : 'Dark Mode',
+                ),
+              ),
+            ),
           ),
-          const SizedBox(width: 20),
         ],
       ),
       body: LayoutBuilder(
@@ -376,22 +411,6 @@ class HomeScreen extends GetView<ThemeController> {
     );
   }
 
-  // Widget _buildSocialButton(IconData icon, String label) {
-  //   return ElevatedButton.icon(
-  //     onPressed: () {},
-  //     icon: Icon(icon, color: Colors.white),
-  //     label: Text(
-  //       label,
-  //       style: GoogleFonts.poppins(color: Colors.white),
-  //     ),
-  //     style: ElevatedButton.styleFrom(
-  //       backgroundColor: Colors.transparent,
-  //       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-  //       side: const BorderSide(color: Colors.white),
-  //     ),
-  //   );
-  // }
-
   Widget _buildTechCard(BuildContext context, String title, IconData icon) {
     return GetX<ThemeController>(
       builder: (controller) => Container(
@@ -430,5 +449,54 @@ class HomeScreen extends GetView<ThemeController> {
         ),
       ),
     );
+  }
+
+  Widget _buildNavButton(String text, bool isActive) {
+    return GetX<ThemeController>(
+      builder: (controller) => MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: InkWell(
+          onTap: () {
+            // Add navigation logic here
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: isActive
+                  ? (controller.isDarkMode
+                      ? Colors.white.withOpacity(0.1)
+                      : Colors.black.withOpacity(0.05))
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(20),
+              border: isActive
+                  ? Border.all(
+                      color: controller.isDarkMode
+                          ? Colors.white.withOpacity(0.2)
+                          : Colors.black.withOpacity(0.1),
+                    )
+                  : null,
+            ),
+            child: MouseRegion(
+              onEnter: (_) => _animateNavButton(true),
+              onExit: (_) => _animateNavButton(false),
+              child: Text(
+                text,
+                style: GoogleFonts.poppins(
+                  color: controller.isDarkMode ? Colors.white : Colors.black87,
+                  fontSize: 14,
+                  fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+// Add this method to your HomeScreen class
+  void _animateNavButton(bool isHovered) {
+    // You can add more complex animations here if needed
   }
 }
