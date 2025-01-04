@@ -46,7 +46,7 @@ class HomeScreen extends GetView<ThemeController> {
 
     return GetX<ThemeController>(
       builder: (controller) => Container(
-        height: isMobile ? 500 : 700,
+        height: isMobile ? 600 : 700,
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -54,8 +54,8 @@ class HomeScreen extends GetView<ThemeController> {
             end: Alignment.bottomRight,
             colors: controller.isDarkMode
                 ? [
-                    const Color(0xFF1A237E), // Darker blue
-                    const Color(0xFF4A148C), // Darker purple
+                    const Color(0xFF1A237E),
+                    const Color(0xFF4A148C),
                   ]
                 : [
                     Colors.blue.shade900,
@@ -66,59 +66,220 @@ class HomeScreen extends GetView<ThemeController> {
         child: Center(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 100),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Hello, I'm Edilayehu Tadesse",
-                  style: GoogleFonts.poppins(
-                    fontSize: isMobile ? 30 : 48,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.3),
-                        offset: const Offset(2, 2),
-                        blurRadius: 5,
-                      ),
-                    ],
-                  ),
+            child: isMobile
+                ? _buildMobileHeader(controller.isDarkMode)
+                : _buildDesktopHeader(controller.isDarkMode),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDesktopHeader(bool isDarkMode) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 3,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "👋 Hello, I'm",
+                style: GoogleFonts.poppins(
+                  fontSize: 24,
+                  color: Colors.white.withOpacity(0.9),
                 ),
-                const SizedBox(height: 20),
-                Text(
-                  "Flutter & React Developer",
-                  style: GoogleFonts.poppins(
-                    fontSize: isMobile ? 20 : 32,
-                    color: Colors.white.withOpacity(0.9),
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.2),
-                        offset: const Offset(1, 1),
-                        blurRadius: 3,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildSocialButton(
-                      CupertinoIcons.gift,
-                      "GitHub",
-                      controller.isDarkMode,
-                    ),
-                    const SizedBox(width: 20),
-                    _buildSocialButton(
-                      CupertinoIcons.link,
-                      "LinkedIn",
-                      controller.isDarkMode,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                "Edilayehu Tadesse",
+                style: GoogleFonts.poppins(
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  height: 1.2,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withOpacity(0.3),
+                      offset: const Offset(2, 2),
+                      blurRadius: 5,
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                "Flutter & React Developer",
+                style: GoogleFonts.poppins(
+                  fontSize: 32,
+                  color: Colors.white.withOpacity(0.9),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                "Crafting beautiful, responsive, and user-friendly applications\nwith a passion for clean code and innovative solutions.",
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.8),
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  _buildSocialButton(
+                    CupertinoIcons.gift,
+                    "GitHub",
+                    isDarkMode,
+                  ),
+                  const SizedBox(width: 20),
+                  _buildSocialButton(
+                    CupertinoIcons.link,
+                    "LinkedIn",
+                    isDarkMode,
+                  ),
+                  const SizedBox(width: 20),
+                  _buildResumeButton(isDarkMode),
+                ],
+              ),
+            ],
           ),
+        ),
+        const SizedBox(width: 60),
+        Expanded(
+          flex: 2,
+          child: _buildProfileImage(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMobileHeader(bool isDarkMode) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildProfileImage(size: 200),
+        const SizedBox(height: 30),
+        Text(
+          "👋 Hello, I'm",
+          style: GoogleFonts.poppins(
+            fontSize: 20,
+            color: Colors.white.withOpacity(0.9),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          "Edilayehu Tadesse",
+          style: GoogleFonts.poppins(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(2, 2),
+                blurRadius: 5,
+              ),
+            ],
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 12),
+        Text(
+          "Flutter & React Developer",
+          style: GoogleFonts.poppins(
+            fontSize: 20,
+            color: Colors.white.withOpacity(0.9),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          "Crafting beautiful, responsive apps with clean code",
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            color: Colors.white.withOpacity(0.8),
+            height: 1.5,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildSocialButton(
+              CupertinoIcons.gift,
+              "GitHub",
+              isDarkMode,
+            ),
+            const SizedBox(width: 16),
+            _buildSocialButton(
+              CupertinoIcons.link,
+              "LinkedIn",
+              isDarkMode,
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        _buildResumeButton(isDarkMode),
+      ],
+    );
+  }
+
+  Widget _buildProfileImage({double? size}) {
+    return Container(
+      width: size ?? 400,
+      height: size ?? 400,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: Colors.white.withOpacity(0.5),
+          width: 4,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 20,
+            spreadRadius: 5,
+          ),
+        ],
+      ),
+      child: ClipOval(
+        child: Image.asset(
+          'assets/images/ed.JPG',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildResumeButton(bool isDarkMode) {
+    return ElevatedButton.icon(
+      onPressed: () {
+        // Add resume download or view logic
+      },
+      icon: const Icon(
+        Icons.download_rounded,
+        color: Colors.white,
+      ),
+      label: Text(
+        "Download CV",
+        style: GoogleFonts.poppins(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blue[700],
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 15),
+        elevation: 0,
+      ).copyWith(
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.1),
         ),
       ),
     );
