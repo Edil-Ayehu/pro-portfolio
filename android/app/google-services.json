@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "254007085784",
+    "project_id": "portfolio-pro-debfd",
+    "storage_bucket": "portfolio-pro-debfd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254007085784:android:d36967c584c42985e4e5ad",
+        "android_client_info": {
+          "package_name": "com.example.portfolio_pro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj_q-xjfV9U7hwUAd_crQkov1zwEkdoNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
